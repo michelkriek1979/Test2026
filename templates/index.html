@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stedentrips Selecteren</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f6d365 0%, #fda085 35%, #84fab0 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 620px;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        padding: 2rem;
+      }
+
+      .trip-item { margin-bottom: 0.6rem; }
+      .hint { color: #444; margin-bottom: 1rem; }
+
+      button {
+        margin-top: 1rem;
+        padding: 0.6rem 1rem;
+        border: none;
+        border-radius: 8px;
+        background: #ff7a59;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      button:hover { background: #e96849; }
+
+      .contact {
+        margin-top: 2rem;
+        border-top: 1px solid #ddd;
+        padding-top: 1rem;
+      }
+
+      .mail {
+        margin-top: 0.6rem;
+        color: #333;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Kies je stedentrips</h1>
+      <p class="hint">Selecteer één of meerdere stedentrips en klik op opslaan.</p>
+
+      <form method="post" action="{{ url_for('opslaan') }}">
+        {% for trip in city_trips %}
+        <div class="trip-item">
+          <label>
+            <input
+              type="checkbox"
+              name="stedentrips"
+              value="{{ trip }}"
+              {% if trip in selected_trips %}checked{% endif %}
+            />
+            {% if trip == "Barcelona" %}<a href="{{ url_for('stedentrip_detail', stad='barcelona') }}">{{ trip }}</a>{% else %}{{ trip }}{% endif %}
+          </label>
+        </div>
+        {% endfor %}
+
+        <button type="submit">Opslaan</button>
+      </form>
+
+      <div class="contact">
+        <button type="button">Contact</button>
+        <div class="mail">ikgagraagopvakantie@leuk.nl</div>
+      </div>
+    </div>
+  </body>
+</html>
