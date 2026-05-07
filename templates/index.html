@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stedentrips Selecteren</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; }
+      .container { max-width: 600px; margin: 0 auto; }
+      .trip-item { margin-bottom: 0.6rem; }
+      button { margin-top: 1rem; padding: 0.6rem 1rem; }
+      .hint { color: #444; margin-bottom: 1rem; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Kies je stedentrips</h1>
+      <p class="hint">Selecteer één of meerdere stedentrips en klik op opslaan.</p>
+
+      <form method="post" action="{{ url_for('opslaan') }}">
+        {% for trip in city_trips %}
+        <div class="trip-item">
+          <label>
+            <input
+              type="checkbox"
+              name="stedentrips"
+              value="{{ trip }}"
+              {% if trip in selected_trips %}checked{% endif %}
+            />
+            {{ trip }}
+          </label>
+        </div>
+        {% endfor %}
+
+        <button type="submit">Opslaan</button>
+      </form>
+    </div>
+  </body>
+</html>
