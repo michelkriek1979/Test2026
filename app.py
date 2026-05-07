@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from flask import Flask, abort, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -54,13 +54,6 @@ def index():
         city_trips=CITY_TRIPS,
         selected_trips=selected_trips,
     )
-
-
-@app.route("/stedentrip/<stad>", methods=["GET"] )
-def stedentrip_detail(stad: str):
-    if stad.lower() != "barcelona":
-        abort(404)
-    return render_template("barcelona.html")
 
 
 @app.route("/opslaan", methods=["POST"])
